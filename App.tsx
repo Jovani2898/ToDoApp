@@ -16,7 +16,8 @@ import {SplashScreen} from './src/components/splashScreen/SplashScreen';
 
 import {ITask, Task} from './src/components/task/Task';
 import {addTask, removeTask} from './src/redux/actions/root';
-import {store} from './src/redux/store';
+import {persistor, store} from './src/redux/store';
+import {PersistGate} from 'redux-persist/integration/react';
 
 const App = () => {
   const [task, setTask] = useState<string | null>(null);
@@ -92,7 +93,9 @@ const App = () => {
 export default function ReduxApp() {
   return (
     <Provider store={store}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   );
 }
